@@ -1,18 +1,13 @@
-#![cfg_attr(no_main, no_std)]
+#![cfg_attr(not(test), no_main, no_std)]
 extern crate alloc;
+extern crate openzeppelin_stylus;
+extern crate stylus_sdk;
 
-/// Use an efficient WASM allocator.
-#[global_allocator]
-static ALLOC: mini_alloc::MiniAlloc = mini_alloc::MiniAlloc::INIT;
-
-/// Import items from the SDK. The prelude contains common traits and macros.
 use stylus_sdk::{
-    alloy_primitives::U256, 
-    prelude::{entrypoint, external, sol_storage}
+    alloy_primitives::U256,
+    prelude::{entrypoint, external, sol_storage},
 };
 
-// Define some persistent storage using the Solidity ABI.
-// `Counter` will be the entrypoint.
 sol_storage! {
     #[entrypoint]
     pub struct Counter {
